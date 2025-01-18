@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Employee Data";
+}
+
+<div class="container mt-4">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <label for="statusFilter">Employee Data</label>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="statusFilter">Filter by Status:</label>
+            <select id="statusFilter" class="form-control">
+                <option value="">All</option>
+                <option value="Approved">Approved</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="departmentFilter">Filter by Department:</label>
+            <select id="departmentFilter" class="form-control">
+                <option value="">All</option>
+                <option value="HR">HR</option>
+                <option value="IT">IT</option>
+                <option value="Finance">Finance</option>
+                <!-- Add more departments as needed -->
+            </select>
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th></th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Date of Birth</th>
+                <th>Department Name</th>
+                <th>Status</th>
+                <th>Employee Number</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>

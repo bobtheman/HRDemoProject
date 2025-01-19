@@ -1,4 +1,6 @@
-﻿@{
+﻿@* @model EmployeeDataResponse *@
+
+@{
     ViewData["Title"] = "Employee Data";
 }
 
@@ -41,6 +43,20 @@
             </tr>
         </thead>
         <tbody>
+            @foreach (var employee in Model.EmployeeDataList)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("Edit", "EmployeeData", new { id = employee.Id })">Edit</a>
+                    </td>
+                    <td>@employee.FirstName</td>
+                    <td>@employee.LastName</td>
+                    <td>@employee.DateOfBirth.ToString("dd/MM/yyyy")</td>
+                    <td>@employee.Department.Name</td>
+                    <td>@employee.EmployeeStatus.Name</td>
+                    <td>@employee.EmployeeNumber</td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>

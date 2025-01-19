@@ -1,7 +1,12 @@
+using HRDemoProject.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//Services
+builder.Services.AddScoped<IApiDataService, ApiDataService>();
 
 var app = builder.Build();
 

@@ -11,6 +11,8 @@
 
         public string? LastName { get; set; }
 
+        public string? EmailAddress { get; set; }
+
         public DateTime? DateOfBirth { get; set; }
 
         public int DepartmentId { get; set; }

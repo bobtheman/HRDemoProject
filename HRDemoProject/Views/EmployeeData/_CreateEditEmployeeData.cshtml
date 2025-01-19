@@ -1,23 +1,31 @@
 ﻿@model HRDemoProject.Models.Employee.EmployeeFilters
 
 <div class="container">
-    <form>
+    <form class="needs-validation" novalidate>
         <input type="hidden" id="hdnId" name="Id" value="@Model.EmployeeData.Id" />
         <div class="mb-3">
             <label for="FirstName" class="form-label">First Name:</label>
             <input type="text" class="form-control" id="txtFirstName" name="FirstName" value="@Model.EmployeeData.FirstName" required />
+            <span class="text-danger" asp-validation-for="EmployeeData.FirstName"></span>
         </div>
         <div class="mb-3">
             <label for="LastName" class="form-label">Last Name:</label>
             <input type="text" class="form-control" id="txtLastName" name="LastName" value="@Model.EmployeeData.LastName" required />
+            <span class="text-danger" asp-validation-for="EmployeeData.LastName"></span>
+        </div>
+        <div class="mb-3">
+            <label for="EmailAddress" class="form-label">Email Address:</label>
+            <input type="email" class="form-control" id="txtEmailAddress" name="EmailAddress" value="@Model.EmployeeData.EmailAddress" required />
+            <span class="text-danger" asp-validation-for="EmployeeData.EmailAddress"></span>
         </div>
         <div class="mb-3">
             <label for="DateOfBirth" class="form-label">Date of Birth:</label>
             <input type="date" class="form-control" id="txtDateOfBirth" name="DateOfBirth" value="@Model.EmployeeData.DateOfBirth?.ToString("yyyy-MM-dd")" required />
+            <span class="text-danger" asp-validation-for="EmployeeData.DateOfBirth"></span>
         </div>
         <div class="mb-3">
             <label for="DepartmentId" class="form-label">Department:</label>
-            <select id="ddlDepartment" class="form-control">
+            <select id="ddlDepartment" class="form-control" name="DepartmentId" required>
                 @if (@Model.EmployeeData.Id != 0)
                 {
                     @foreach (var department in Model.DepartmentDataResponse.DepartmentDataList)
@@ -33,10 +41,11 @@
                     }
                 }
             </select>
+            <span class="text-danger" asp-validation-for="EmployeeData.DepartmentId"></span>
         </div>
         <div class="mb-3">
             <label for="EmployeeStatusId" class="form-label">Employee Status:</label>
-            <select id="ddlEmployeeStatus" class="form-control">
+            <select id="ddlEmployeeStatus" class="form-control" name="EmployeeStatusId" required>
                 @if (@Model.EmployeeData.Id != 0)
                 {
                     @foreach (var employeeStatus in Model.EmployeeStatusDataResponse.EmployeeStatusList)
@@ -52,10 +61,68 @@
                     }
                 }
             </select>
+            <span class="text-danger" asp-validation-for="EmployeeData.EmployeeStatusId"></span>
         </div>
         <div class="mb-3">
-            <label for="txtEmployeeNumber" class="form-label">Employee Number:</label>
-            <input type="text" class="form-control" id="EmployeeNumber" name="EmployeeNumber" value="@Model.EmployeeData.EmployeeNumber" required />
+            <label for="EmployeeNumber" class="form-label">Employee Number:</label>
+            <input type="text" class="form-control" id="txtEmployeeNumber" name="EmployeeNumber" value="@Model.EmployeeData.EmployeeNumber" required />
+            <span class="text-danger" asp-validation-for="EmployeeData.EmployeeNumber"></span>
+        </div>
+        <div class="mb-3" style="text-align:right">
+            <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </form>
 </div>
+
+<script>
+    (function () {
+        'use strict'
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    } else {
+                        saveEmployeeChanges();
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+
+    function saveEmployeeChanges() {
+        var employeeData = {
+            id: $('#hdnId').val(),
+            firstName: $('#txtFirstName').val(),
+            lastName: $('#txtLastName').val(),
+            emailAddress: $('#txtEmailAddress').val(),
+            dateOfBirth: $('#txtDateOfBirth').val(),
+            departmentId: $("#ddlDepartment option:selected").val(),
+            employeeStatusId: $("#ddlEmployeeStatus option:selected").val(),
+            employeeNumber: $('#txtEmployeeNumber').val(),
+        };
+
+        $.ajax({
+            url: '@Url.Action("SaveEmployeeData", "EmployeeData")',
+            type: 'POST',
+            data: employeeData,
+            dataType: "json",
+            success: function (response) {
+                $('#employeeModal').modal('hide');
+
+                if(response)
+                {
+                    alert('Success saving employee data');
+                    GetFilteredData();
+                }
+                else
+                {
+                    alert('Error saving employee data');
+                    GetFilteredData();
+                }
+            }
+        });
+    }
+</script>

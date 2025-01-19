@@ -108,7 +108,8 @@
         {
             try
             {
-                return false;
+                var result = await _employeeDataService.CreateEmployeeDataAsync(employeeData);
+                return true;
             }
             catch(Exception ex)
             {
@@ -121,7 +122,8 @@
         {
             try
             {
-                return false;
+                var result = await _employeeDataService.UpdateEmployeeDataAsync(employeeData);
+                return true;
             }
             catch (Exception ex)
             {

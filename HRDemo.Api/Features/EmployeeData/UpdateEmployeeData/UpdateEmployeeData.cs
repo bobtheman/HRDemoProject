@@ -1,4 +1,4 @@
-﻿namespace HRDemo.Api.Features.EmployeeData.CreateEmployeeData
+﻿namespace HRDemo.Api.Features.EmployeeData.UpdateEmployeeData
 {
     using Carter;
     using FluentValidation;
@@ -10,10 +10,11 @@
     using Microsoft.EntityFrameworkCore;
     using HRDemo.Api.EmployeDataValidator;
 
-    public static class CreateEmployeeData
+    public static class UpdateEmployeeData
     {
         public class Command : IRequest<Result<int>>
         {
+            public int Id { get; set; } = default!;
             public string FirstName { get; set; } = string.Empty;
             public string LastName { get; set; } = string.Empty;
             public string EmailAddress { get; set; } = string.Empty;
@@ -27,7 +28,7 @@
         {
             public Validator()
             {
-                EmployeeDataValidationRules.CreateEmployeeDataValidationRules(this);
+                EmployeeDataValidationRules.UpdateEmployeeDataValidationRules(this);
             }
         }
 
@@ -45,18 +46,19 @@
             public async Task<Result<int>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var validationResult = _validator.Validate(request);
+
                 if (!validationResult.IsValid)
                 {
-                    return Result.Failure<int>(new Error("CreateEmployeeData.Validation", validationResult.ToString()));
+                    return Result.Failure<int>(new Error("UpdateEmployeeData.Validation", validationResult.ToString()));
                 }
 
-                var emailExists = await _dbContext.EmployeeData.AnyAsync(e => e.EmailAddress == request.EmailAddress, cancellationToken);
+                var emailExists = await _dbContext.EmployeeData.AnyAsync(e => e.EmailAddress == request.EmailAddress && e.Id != request.Id, cancellationToken);
                 if (emailExists)
                 {
                     return Result.Failure<int>(new Error("UpdateEmployeeData.DuplicateEmail", "Email address already exists."));
                 }
 
-                var employeeNumberExists = await _dbContext.EmployeeData.AnyAsync(e => e.EmployeeNumber == request.EmployeeNumber, cancellationToken);
+                var employeeNumberExists = await _dbContext.EmployeeData.AnyAsync(e => e.EmployeeNumber == request.EmployeeNumber && e.Id != request.Id, cancellationToken);
                 if (employeeNumberExists)
                 {
                     return Result.Failure<int>(new Error("UpdateEmployeeData.DuplicateEmployeeNumber", "Employee number already exists."));
@@ -64,6 +66,7 @@
 
                 var employeeData = new Entities.EmployeeData()
                 {
+                    Id = request.Id,
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     EmailAddress = request.EmailAddress,
@@ -73,13 +76,12 @@
                     EmployeeNumber = request.EmployeeNumber
                 };
 
-                _dbContext.EmployeeData.Add(employeeData);
+                _dbContext.EmployeeData.Update(employeeData);
 
                 await _dbContext.SaveChangesAsync(cancellationToken);
 
-                return employeeData.Id;
+                return Result.Success(employeeData.Id);
             }
-
         }
     }
 
@@ -87,9 +89,9 @@
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapPost("/api/Employee/CreateEmployeedata", async (CreateEmployeeDataRequest request, ISender sender) =>
+            app.MapPut("/api/Employee/UpdateEmployeeData", async (UpdateEmployeeDataRequest request, ISender sender) =>
             {
-                var command = request.Adapt<CreateEmployeeData.Command>();
+                var command = request.Adapt<UpdateEmployeeData.Command>();
 
                 var result = await sender.Send(command);
 
@@ -98,7 +100,7 @@
                     return Results.BadRequest(result.Error);
                 }
 
-                return Results.Ok(result.Value);
+                return Results.Ok(result);
             });
         }
     }

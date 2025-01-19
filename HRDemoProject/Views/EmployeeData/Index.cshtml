@@ -62,10 +62,6 @@
             </div>
             <div class="modal-body">
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="saveEmployeeChanges()">Save changes</button>
-            </div>
         </div>
     </div>
 </div>
@@ -165,39 +161,6 @@
                     }
                 });
             }
-        }
-
-        function saveEmployeeChanges() {
-            var employeeData = {
-                id: $('#hdnId').val(),
-                firstName: $('#txtFirstName').val(),
-                lastName: $('#txtLastName').val(),
-                dateOfBirth: $('#txtDateOfBirth').val(),
-                departmentId: $("#ddlDepartment option:selected").val(),
-                employeeStatusId: $("#ddlEmployeeStatus option:selected").val(),
-                employeeNumber: $('#txtEmployeeNumber').val(),
-            };
-
-            $.ajax({
-                url: '@Url.Action("SaveEmployeeData", "EmployeeData")',
-                type: 'POST',
-                data: employeeData,
-                dataType: "json",
-                success: function (response) {
-                    $('#employeeModal').modal('hide');
-
-                    if(response)
-                    {
-                        alert('Success saving employee data');
-                        GetFilteredData();
-                    }
-                    else
-                    {
-                        alert('Error saving employee data');
-                        GetFilteredData();
-                    }
-                }
-            });
         }
     </script>
 }

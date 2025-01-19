@@ -71,6 +71,7 @@ namespace HRDemo.Api.Features.EmployeeData.GetEmployeeData
                         Id = employeeData.Id,
                         FirstName = employeeData.FirstName,
                         LastName = employeeData.LastName,
+                        EmailAddress = employeeData.EmailAddress,
                         DateOfBirth = employeeData.DateOfBirth,
                         DepartmentId = employeeData.DepartmentId,
                         EmployeeStatusId = employeeData.EmployeeStatusId,

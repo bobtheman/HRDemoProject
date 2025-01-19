@@ -7,7 +7,7 @@ using HRDemo.Api.Shared;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace HRDemo.Api.Features.EmployeeData
+namespace HRDemo.Api.Features.EmployeeData.GetEmployeeData
 {
     public static class GetEmployeeData
     {
@@ -64,11 +64,11 @@ namespace HRDemo.Api.Features.EmployeeData
                 return employeeDataResponse;
             }
 
-            
+
         }
     }
 
-    public class GetEmployeeDataQuery: ICarterModule
+    public class GetEmployeeDataQuery : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {

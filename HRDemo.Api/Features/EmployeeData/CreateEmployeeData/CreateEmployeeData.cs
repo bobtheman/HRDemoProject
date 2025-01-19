@@ -6,7 +6,7 @@ using HRDemo.Api.Shared;
 using Mapster;
 using HRDemo.Api.Contracts.EmployeeData;
 
-namespace HRDemo.Api.Features.EmployeeData
+namespace HRDemo.Api.Features.EmployeeData.CreateEmployeeData
 {
     public static class CreateEmployeeData
     {

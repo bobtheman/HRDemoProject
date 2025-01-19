@@ -7,7 +7,7 @@ using HRDemo.Api.Shared;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace HRDemo.Api.Features.EmployeeData
+namespace HRDemo.Api.Features.EmployeeData.GetEmployeeData
 {
     public static class GetFilteredEmployeeData
     {

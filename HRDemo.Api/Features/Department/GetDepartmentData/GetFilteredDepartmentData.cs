@@ -5,7 +5,7 @@ using HRDemo.Api.Shared;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace HRDemo.Api.Features.Department
+namespace HRDemo.Api.Features.Department.GetDepartmentData
 {
     public static class GetFilteredDepartmentData
     {

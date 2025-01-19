@@ -5,7 +5,7 @@ using HRDemo.Api.Shared;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace HRDemo.Api.Features.EemployeeStatus
+namespace HRDemo.Api.Features.EmployeeStatus.GetEmployeeStatus
 {
     public static class GetFilteredEmployeeStatusData
     {

@@ -75,7 +75,7 @@ namespace HRDemo.Api.Features.EmployeeData
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapPost("/api/createemployeedata", async (CreateEmployeeDataRequest request, ISender sender) =>
+            app.MapPost("/api/Employee/CreateEmployeedata", async (CreateEmployeeDataRequest request, ISender sender) =>
             {
                 var command = request.Adapt<CreateEmployeeData.Command>();
 

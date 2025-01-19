@@ -16,9 +16,9 @@ IF NOT EXISTS(SELECT Id FROM ScriptSetupLog WHERE [Code] = 'F745E97E-C3E4-4F42-B
 			-- ************************************************************************************************************************************
 			-- Script goes here
 			-- ************************************************************************************************************************************	
-				INSERT INTO EmployeeStatus (Name,Active) VALUES ('Approved',1);
-				INSERT INTO EmployeeStatus (Name,Active) VALUES ('Pending',1);
-				INSERT INTO EmployeeStatus (Name,Active) VALUES ('Disabled',1);
+				INSERT INTO EmployeeStatus (Name) VALUES ('Approved');
+				INSERT INTO EmployeeStatus (Name) VALUES ('Pending');
+				INSERT INTO EmployeeStatus (Name) VALUES ('Disabled');
 			-- ************************************************************************************************************************************
 			-- Script End			
 			-- ************************************************************************************************************************************

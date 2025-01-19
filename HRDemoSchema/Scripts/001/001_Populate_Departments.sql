@@ -16,11 +16,11 @@ IF NOT EXISTS(SELECT Id FROM ScriptSetupLog WHERE [Code] = '9743D1A5-E84A-4330-A
 			-- ************************************************************************************************************************************
 			-- Script goes here
 			-- ************************************************************************************************************************************	
-				INSERT INTO Departments (Name,Active) VALUES ('IT',1);
-				INSERT INTO Departments (Name,Active) VALUES ('Sales',1);
-				INSERT INTO Departments (Name,Active) VALUES ('Accounts',1);
-				INSERT INTO Departments (Name,Active) VALUES ('HR',1);
-				INSERT INTO Departments (Name,Active) VALUES ('Admin',1);
+				INSERT INTO Departments (Name) VALUES ('IT');
+				INSERT INTO Departments (Name) VALUES ('Sales');
+				INSERT INTO Departments (Name) VALUES ('Accounts');
+				INSERT INTO Departments (Name) VALUES ('HR');
+				INSERT INTO Departments (Name) VALUES ('Admin');
 			-- ************************************************************************************************************************************
 			-- Script End			
 			-- ************************************************************************************************************************************

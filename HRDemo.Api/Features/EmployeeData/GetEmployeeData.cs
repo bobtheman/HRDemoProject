@@ -3,7 +3,6 @@ using HRDemo.Api.Contracts.Department;
 using HRDemo.Api.Contracts.EmployeeData;
 using HRDemo.Api.Contracts.EmployeeStatus;
 using HRDemo.Api.Database;
-using HRDemo.Api.Features.EmployeeData;
 using HRDemo.Api.Shared;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -73,7 +72,7 @@ namespace HRDemo.Api.Features.EmployeeData
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapGet("/api/getemployee/{id}", async (int id, ISender sender) =>
+            app.MapGet("/api/Employee/GetEmployee/{id}", async (int id, ISender sender) =>
             {
                 var query = new GetEmployeeData.GetEmployeesByEmployeeId { Id = id };
 

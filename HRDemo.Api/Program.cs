@@ -2,7 +2,6 @@ using HRDemo.Api.Database;
 using Microsoft.EntityFrameworkCore;
 using Carter;
 using FluentValidation;
-using HRDemo.Api.Features.EmployeeData;
 
 var builder = WebApplication.CreateBuilder(args);
 

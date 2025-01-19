@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Employee Data";
+    var pageLength = Model.DataTableSettings.PageLength;
 }
 
 <div class="container mt-4">
@@ -82,10 +83,11 @@
             $('#tblEmployeeData').DataTable({
                 responsive: true,
                 bLengthChange: true,
-                lengthMenu: [[25, 50, 75, 100, -1], [25, 50, 75, 100, "All"]],
+                lengthMenu: [[5, 10, 25, 50, 75, 100, -1], [5, 10, 25, 50, 75, 100, "All"]],
                 bFilter: true,
                 bSort: true,
                 bPaginate: true,
+                pageLength: @pageLength,
                 data: filteredData,
                 columns: [
                     {

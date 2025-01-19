@@ -11,9 +11,4 @@
     <PackageReference Include="RestSharp" Version="112.1.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Response\Department\" />
-    <Folder Include="Response\EmployeeStatus\" />
-  </ItemGroup>
-
 </Project>

@@ -1,4 +1,6 @@
-using HRDemoProject.Services;
+using HRDemoProject.Services.Department;
+using HRDemoProject.Services.EmployeeData;
+using HRDemoProject.Services.EmployeeStatus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,7 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 //Services
-builder.Services.AddScoped<IApiDataService, ApiDataService>();
+builder.Services.AddScoped<IDepartmentDataSerivce, DepartmentDataSerivce>();
+builder.Services.AddScoped<IEmployeeDataService, EmployeeDataService>();
+builder.Services.AddScoped<IEmployeeStatusDataSerivce, EmployeeStatusDataSerivce>();
 
 var app = builder.Build();
 

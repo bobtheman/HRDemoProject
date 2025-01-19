@@ -18,7 +18,7 @@ IF NOT EXISTS(SELECT Id FROM ScriptSetupLog WHERE [Code] = '1D35BA93-07EB-47CE-8
 			-- ************************************************************************************************************************************	
 				
 				INSERT INTO EmployeeData (FirstName,LastName,DateOfBirth,DepartmentId,EmployeeStatusId,EmployeeNumber) VALUES ('Wendy','Anderson','1986-01-01',5,1,'WA003');
-				INSERT INTO EmployeeData (FirstName,LastName,DateOfBirth,DepartmentId,EmployeeStatusId,EmployeeNumber) VALUES ('Wendy','Anderson','1986-03-04',5,1,'WA003');
+				INSERT INTO EmployeeData (FirstName,LastName,DateOfBirth,DepartmentId,EmployeeStatusId,EmployeeNumber) VALUES ('Wendy','Anderson','1986-03-04',5,1,'WA006');
 				INSERT INTO EmployeeData (FirstName,LastName,DateOfBirth,DepartmentId,EmployeeStatusId,EmployeeNumber) VALUES ('John','Doe','1985-02-02',1,1,'JD001');
 				INSERT INTO EmployeeData (FirstName,LastName,DateOfBirth,DepartmentId,EmployeeStatusId,EmployeeNumber) VALUES ('Jane','Doe','1979-01-13',2,1,'JD002');
 				INSERT INTO EmployeeData (FirstName,LastName,DateOfBirth,DepartmentId,EmployeeStatusId,EmployeeNumber) VALUES ('Jim','Doe','1963-03-17',3,2,'JD003');

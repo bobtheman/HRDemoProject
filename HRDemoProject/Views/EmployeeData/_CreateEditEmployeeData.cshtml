@@ -1,0 +1,61 @@
+﻿@model HRDemoProject.Models.Employee.EmployeeFilters
+
+<div class="container">
+    <form>
+        <input type="hidden" id="hdnId" name="Id" value="@Model.EmployeeData.Id" />
+        <div class="mb-3">
+            <label for="FirstName" class="form-label">First Name:</label>
+            <input type="text" class="form-control" id="txtFirstName" name="FirstName" value="@Model.EmployeeData.FirstName" required />
+        </div>
+        <div class="mb-3">
+            <label for="LastName" class="form-label">Last Name:</label>
+            <input type="text" class="form-control" id="txtLastName" name="LastName" value="@Model.EmployeeData.LastName" required />
+        </div>
+        <div class="mb-3">
+            <label for="DateOfBirth" class="form-label">Date of Birth:</label>
+            <input type="date" class="form-control" id="txtDateOfBirth" name="DateOfBirth" value="@Model.EmployeeData.DateOfBirth?.ToString("yyyy-MM-dd")" required />
+        </div>
+        <div class="mb-3">
+            <label for="DepartmentId" class="form-label">Department:</label>
+            <select id="ddlDepartment" class="form-control">
+                @if (@Model.EmployeeData.Id != 0)
+                {
+                    @foreach (var department in Model.DepartmentDataResponse.DepartmentDataList)
+                    {
+                        <option value="@department.Id" selected="@(department.Id == Model.EmployeeData.DepartmentId)">@department.Name</option>
+                    }
+                }
+                else
+                {
+                    @foreach (var department in Model.DepartmentDataResponse.DepartmentDataList)
+                    {
+                        <option value="@department.Id">@department.Name</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="EmployeeStatusId" class="form-label">Employee Status:</label>
+            <select id="ddlEmployeeStatus" class="form-control">
+                @if (@Model.EmployeeData.Id != 0)
+                {
+                    @foreach (var employeeStatus in Model.EmployeeStatusDataResponse.EmployeeStatusList)
+                    {
+                        <option value="@employeeStatus.Id" selected="@(employeeStatus.Id == Model.EmployeeData.EmployeeStatusId)">@employeeStatus.Name</option>
+                    }
+                }
+                else
+                { 
+                    @foreach (var employeeStatus in Model.EmployeeStatusDataResponse.EmployeeStatusList)
+                    {
+                        <option value="@employeeStatus.Id">@employeeStatus.Name</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="txtEmployeeNumber" class="form-label">Employee Number:</label>
+            <input type="text" class="form-control" id="EmployeeNumber" name="EmployeeNumber" value="@Model.EmployeeData.EmployeeNumber" required />
+        </div>
+    </form>
+</div>

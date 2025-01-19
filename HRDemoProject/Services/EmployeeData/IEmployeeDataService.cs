@@ -4,6 +4,6 @@
 
     public interface IEmployeeDataService
     {
-        Task<EmployeeDataResponse> GetFilteredEmployeeListAsync(int? employeeStatusId, int? departmentId);
+        Task<EmployeeDataResponse> GetFilteredEmployeeListAsync(int? employeeId, int? employeeStatusId, int? departmentId);
     }
 }

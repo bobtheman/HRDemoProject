@@ -6,6 +6,7 @@
 
     public class EmployeeFilters
     {
+        public EmployeeData EmployeeData { get; set; } = new EmployeeData();
         public DepartmentDataResponse DepartmentDataResponse { get; set; } = new DepartmentDataResponse();
         public EmployeeStatusDataResponse EmployeeStatusDataResponse { get; set; } = new EmployeeStatusDataResponse();
         public DataTableSettings DataTableSettings { get; set; } = new DataTableSettings();

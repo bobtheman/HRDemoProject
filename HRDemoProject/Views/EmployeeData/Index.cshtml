@@ -5,8 +5,11 @@
 
 <div class="container mt-4">
     <div class="row mb-3">
-        <div class="col-md-12">
+        <div class="col-md-11">
             <label for="statusFilter">Employee Data</label>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-primary" onclick="openEmployeeModalCreateEdit()">Create</button>
         </div>
     </div>
     <div class="row mb-3">
@@ -46,6 +49,25 @@
         <tbody>
         </tbody>
     </table>
+</div>
+
+<div class="modal fade" id="employeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="employeeModalLabel">Edit Employee</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="saveEmployeeChanges()">Save changes</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
@@ -93,7 +115,7 @@
                     {
                         data: 'id',
                         render: function (data, type, row) {
-                            return '<a href="@Url.Action("Edit", "EmployeeData")/' + data + '">Edit</a>';
+                            return '<a href="#" onclick="openEmployeeModalCreateEdit(' + data + ')">Edit</a>';
                         }
                     },
                     { data: 'firstName' },
@@ -115,5 +137,67 @@
             });
         }
 
+        function openEmployeeModalCreateEdit(employeeId) {
+            if(employeeId == null)
+            {
+               $.ajax({
+                    url: '@Url.Action("CreatEmployeeData", "EmployeeData")',
+                    type: 'POST',
+                    dataType: "HTML",
+                    success: function (response) {
+                        $('#employeeModal .modal-body').html(response);
+                        $('#employeeModal').modal('show');
+                    }
+                });
+            }
+            else
+            {
+               $.ajax({
+                    url: '@Url.Action("EditEmployeeData", "EmployeeData")',
+                    type: 'POST',
+                    data: {
+                        employeeId: employeeId
+                    },
+                    dataType: "HTML",
+                    success: function (response) {
+                        $('#employeeModal .modal-body').html(response);
+                        $('#employeeModal').modal('show');
+                    }
+                });
+            }
+        }
+
+        function saveEmployeeChanges() {
+            var employeeData = {
+                id: $('#hdnId').val(),
+                firstName: $('#txtFirstName').val(),
+                lastName: $('#txtLastName').val(),
+                dateOfBirth: $('#txtDateOfBirth').val(),
+                departmentId: $("#ddlDepartment option:selected").val(),
+                employeeStatusId: $("#ddlEmployeeStatus option:selected").val(),
+                employeeNumber: $('#txtEmployeeNumber').val(),
+            };
+
+            $.ajax({
+                url: '@Url.Action("SaveEmployeeData", "EmployeeData")',
+                type: 'POST',
+                data: employeeData,
+                dataType: "json",
+                success: function (response) {
+                    $('#employeeModal').modal('hide');
+
+                    if(response)
+                    {
+                        alert('Success saving employee data');
+                        GetFilteredData();
+                    }
+                    else
+                    {
+                        alert('Error saving employee data');
+                        GetFilteredData();
+                    }
+                }
+            });
+        }
     </script>
 }

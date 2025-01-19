@@ -16,11 +16,16 @@
             _client = new RestClient(_configuration["HRDempApi:Url"]);
         }
 
-        public async Task<EmployeeDataResponse> GetFilteredEmployeeListAsync(int? employeeStatusId, int? departmentId)
+        public async Task<EmployeeDataResponse> GetFilteredEmployeeListAsync(int? employeeId, int? employeeStatusId, int? departmentId)
         {
             var employeeDataResponse = new EmployeeDataResponse();
 
             var request = new RestRequest("api/Employee/GetFilteredEmployeelist", Method.Get);
+
+            if (employeeId.HasValue)
+            {
+                request.AddParameter("Id", employeeId.Value);
+            }
 
             if (employeeStatusId.HasValue)
             {

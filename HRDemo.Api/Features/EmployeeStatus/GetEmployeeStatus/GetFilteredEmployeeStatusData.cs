@@ -16,7 +16,7 @@ namespace HRDemo.Api.Features.EmployeeStatus.GetEmployeeStatus
         }
 
 
-        internal sealed class Handler : IRequestHandler<GetFilteredEmployeeStatus, Result<List<EmployeeStatusResponse>>>
+        public class Handler : IRequestHandler<GetFilteredEmployeeStatus, Result<List<EmployeeStatusResponse>>>
         {
             private readonly AppDbContext _dbContext;
 

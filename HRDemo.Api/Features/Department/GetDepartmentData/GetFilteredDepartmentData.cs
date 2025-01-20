@@ -17,7 +17,7 @@ namespace HRDemo.Api.Features.Department.GetDepartmentData
         }
 
 
-        internal sealed class Handler : IRequestHandler<GetFilteredDepartment, Result<List<DepartmentResponse>>>
+        public class Handler : IRequestHandler<GetFilteredDepartment, Result<List<DepartmentResponse>>>
         {
             private readonly AppDbContext _dbContext;
 

@@ -23,11 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Department\" />
-    <Folder Include="Features\EmployeeStatus\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\HRDemo.Api\HRDemo.Api.csproj" />
   </ItemGroup>
 

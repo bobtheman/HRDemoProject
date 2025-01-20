@@ -106,5 +106,14 @@
 
             return Json(result);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteEmployeeData(int employeeId)
+        {
+            var result = new Result();
+            result = await _employeeDataService.DeleteEmployeeDataAsync(new EmployeeData() { Id = employeeId });
+            _logger.LogInformation($"DeleteEmployeeData Id:{employeeId}|isSuccess:{result.IsSuccess}|isFailure:{result.IsFailure}|Code:{result.Code}|Message:{result.Message}");
+            return Json(result);
+        }
     }
 }

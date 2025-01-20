@@ -8,5 +8,6 @@
         Task<EmployeeDataResponse> GetFilteredEmployeeListAsync(int? employeeId, int? employeeStatusId, int? departmentId);
         Task<Result> CreateEmployeeDataAsync(EmployeeData employeeData);
         Task<Result> UpdateEmployeeDataAsync(EmployeeData employeeData);
+        Task<Result> DeleteEmployeeDataAsync(EmployeeData employeeData);
     }
 }

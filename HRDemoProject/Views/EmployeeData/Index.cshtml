@@ -5,6 +5,9 @@
 
 <div class="container mt-4">
     <div class="row mb-3">
+        <div id="divMessages"></div>
+    </div>
+    <div class="row mb-3">
         <div class="col-md-11">
             <label for="statusFilter">Employee Data</label>
         </div>
@@ -37,7 +40,7 @@
     <table id="tblEmployeeData" class="table table-striped table-bordered" style="width:100%">
         <thead class="thead-light">
             <tr>
-                <th class="text-left">Edit</th>
+                <th class="text-left"></th>
                 <th class="text-left">First Name</th>
                 <th class="text-left">Last Name</th>
                 <th class="text-left">Date of Birth</th>
@@ -55,12 +58,46 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="employeeModalLabel">Edit Employee</h5>
+                <h5 class="modal-title" id="employeeModalLabel"></h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    Are you sure you want to delete this employee?
+                </div>
+                <div class="mb-3">
+                    <label for="FirstName" class="form-label">First Name:</label>
+                    <input type="text" class="form-control" id="txtDeleteFirstName" name="FirstName" />
+                </div>
+                <div class="mb-3">
+                    <label for="LastName" class="form-label">Last Name:</label>
+                    <input type="text" class="form-control" id="txtDeleteLastName" name="LastName" />
+                </div>
+                <div class="mb-3">
+                    <label for="EmployeeNumber" class="form-label">Employee Number:</label>
+                    <input type="text" class="form-control" id="txtDeleteEmployeeNumber" name="EmployeeNumber" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
             </div>
         </div>
     </div>
@@ -111,8 +148,10 @@
                     {
                         data: 'id',
                         render: function (data, type, row) {
-                            return '<a href="#" class="btn btn-primary" onclick="openEmployeeModalCreateEdit(' + data + ')">Edit</a>';
-                        }
+                            return '<a href="#" class="btn btn-primary" onclick="openEmployeeModalCreateEdit(' + data + ')">Edit</a>' +
+                                   ' <a href="#" class="btn btn-danger" onclick="openDeleteModal(' + data + ', \'' + row.firstName + '\', \'' + row.lastName + '\', \'' + row.employeeNumber + '\')">Delete</a>';
+                        },
+                        width: "150px"
                     },
                     { data: 'firstName' },
                     { data: 'lastName' },
@@ -141,6 +180,7 @@
                     type: 'POST',
                     dataType: "HTML",
                     success: function (response) {
+                        $('#employeeModalLabel').text('Create Employee');
                         $('#employeeModal .modal-body').html(response);
                         $('#employeeModal').modal('show');
                     }
@@ -156,11 +196,47 @@
                     },
                     dataType: "HTML",
                     success: function (response) {
+                        $('#employeeModalLabel').text('Edit Employee');
                         $('#employeeModal .modal-body').html(response);
                         $('#employeeModal').modal('show');
                     }
                 });
             }
+        }
+
+        function openDeleteModal(employeeId, firstName, lastName, employeeNumber) {
+            $('#txtDeleteFirstName').val(firstName);
+            $('#txtDeleteLastName').val(lastName);
+            $('#txtDeleteEmployeeNumber').val(employeeNumber);
+            $('#deleteModal').modal('show');
+            $('#confirmDelete').off('click').on('click', function () {
+                deleteEmployee(employeeId);
+                $('#deleteModal').modal('hide');
+            });
+        }
+
+        function deleteEmployee(employeeId) {
+            $.ajax({
+                url: '@Url.Action("DeleteEmployeeData", "EmployeeData")',
+                type: 'POST',
+                data: {
+                    employeeId: employeeId
+                },
+                dataType: "json",
+                success: function (response) {
+                    if (response.isSuccess == true) {
+                        var alertDiv = $('<div class="alert alert-success fade show" role="alert">')
+                            .text('Employee has successfully been deleted')
+                        $('#divMessages').html(alertDiv);
+                        GetFilteredData();
+                    }
+                    else {
+                        var alertDiv = $('<div class="alert alert-danger fade show" role="alert">')
+                            .text('Error deleting employee data: ' + response.message)
+                        $('#divMessages').html(alertDiv);
+                    }
+                }
+            });
         }
     </script>
 }

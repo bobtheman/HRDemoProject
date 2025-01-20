@@ -2,6 +2,7 @@
 {
     using FluentValidation;
     using HRDemo.Api.Features.EmployeeData.CreateEmployeeData;
+    using HRDemo.Api.Features.EmployeeData.DeleteEomployeeData;
     using HRDemo.Api.Features.EmployeeData.UpdateEmployeeData;
 
     public static class EmployeeDataValidationRules
@@ -33,6 +34,11 @@
             validator.RuleFor(x => x.FirstName).MaximumLength(50).WithMessage("FirstName cannot exceed 100 characters");
             validator.RuleFor(x => x.LastName).MaximumLength(50).WithMessage("LastName cannot exceed 100 characters");
             validator.RuleFor(x => x.EmployeeNumber).Matches(@"^[A-Z0-9]+$").WithMessage("EmployeeNumber must be alphanumeric");
+        }
+
+        public static void DeleteEmployeeDataValidationRules(this AbstractValidator<DeleteEmployeeData.Command> validator)
+        {
+            validator.RuleFor(x => x.Id).NotEmpty().WithMessage("Id is required");
         }
     }
 }

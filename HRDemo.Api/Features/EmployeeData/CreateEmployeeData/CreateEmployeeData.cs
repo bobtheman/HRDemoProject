@@ -31,7 +31,7 @@
             }
         }
 
-        internal sealed class Handler : IRequestHandler<Command, Result<int>>
+        public class Handler : IRequestHandler<Command, Result<int>>
         {
             private readonly AppDbContext _dbContext;
             private readonly IValidator<Command> _validator;
@@ -42,7 +42,7 @@
                 _validator = validator;
             }
 
-            public async Task<Result<int>> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Result<int>> Handle(CreateEmployeeData.Command request, CancellationToken cancellationToken)
             {
                 var validationResult = _validator.Validate(request);
 

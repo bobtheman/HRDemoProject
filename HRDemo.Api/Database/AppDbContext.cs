@@ -9,8 +9,8 @@
         {
         }
 
-        public DbSet<Department> Departments { get; init; }
-        public DbSet<EmployeeData> EmployeeData { get; init; }
-        public DbSet<EmployeeStatus> EmployeeStatus { get; init; }
+        public virtual DbSet<Department> Departments { get; init; }
+        public virtual DbSet<EmployeeData> EmployeeData { get; init; }
+        public virtual DbSet<EmployeeStatus> EmployeeStatus { get; init; }
     }
 }

@@ -37,5 +37,11 @@
   1. The HRDemoProject is set to run on localhost:7240, HRDemo.Api is set to run on localhost:7110. This can be updated in the launchSettings.json under each project if required
   
   2. HRDemoProject and HRDemo.Api both need to be run to use the application, ensure "Multiple startup project" action for HRDemoProject and HRDemo.Api is set to Start
+
+  3. The default page size is set to 25, this can be updated by editing appsettings.Development.json -> DataTableSettings -> PageLength to a valid number
      
-  3. Start the project and enjoy
+  4. Start the project and enjoy
+     
+****See it in action****
+
+https://jam.dev/c/ff733a64-a633-4af8-a767-65f64d36e2ef

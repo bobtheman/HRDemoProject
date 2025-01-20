@@ -1,4 +1,4 @@
-﻿namespace HRDemo.Api.EmployeDataValidator
+﻿namespace HRDemo.Api.Validator.EmployeDataValidator
 {
     using FluentValidation;
     using HRDemo.Api.Features.EmployeeData.CreateEmployeeData;
@@ -12,7 +12,7 @@
             validator.RuleFor(x => x.FirstName).NotEmpty().WithMessage("FirstName is required");
             validator.RuleFor(x => x.LastName).NotEmpty().WithMessage("LastName is required");
             validator.RuleFor(x => x.EmailAddress).NotEmpty().EmailAddress().WithMessage("Valid Email Address Required");
-            validator.RuleFor(x => x.DateOfBirth).NotEmpty().Must(date => date != default(DateTime)).WithMessage("Date of Birth must be a valid date.");
+            validator.RuleFor(x => x.DateOfBirth).NotEmpty().Must(date => date != default).WithMessage("Date of Birth must be a valid date.");
             validator.RuleFor(x => x.DepartmentId).NotEmpty().GreaterThan(0).WithMessage("DepartmentId is required and must be a valid value");
             validator.RuleFor(x => x.EmployeeStatusId).NotEmpty().GreaterThan(0).WithMessage("EmployeeStatusId is required and must be a valid value");
             validator.RuleFor(x => x.EmployeeNumber).NotEmpty().WithMessage("EmployeeNumber is required");
@@ -27,7 +27,7 @@
             validator.RuleFor(x => x.FirstName).NotEmpty().WithMessage("FirstName is required");
             validator.RuleFor(x => x.LastName).NotEmpty().WithMessage("LastName is required");
             validator.RuleFor(x => x.EmailAddress).NotEmpty().EmailAddress().WithMessage("Valid Email Address Required");
-            validator.RuleFor(x => x.DateOfBirth).NotEmpty().Must(date => date != default(DateTime)).WithMessage("Date of Birth must be a valid date.");
+            validator.RuleFor(x => x.DateOfBirth).NotEmpty().Must(date => date != default).WithMessage("Date of Birth must be a valid date.");
             validator.RuleFor(x => x.DepartmentId).NotEmpty().GreaterThan(0).WithMessage("DepartmentId is required and must be a valid value");
             validator.RuleFor(x => x.EmployeeStatusId).NotEmpty().GreaterThan(0).WithMessage("EmployeeStatusId is required and must be a valid value");
             validator.RuleFor(x => x.EmployeeNumber).NotEmpty().WithMessage("EmployeeNumber is required");

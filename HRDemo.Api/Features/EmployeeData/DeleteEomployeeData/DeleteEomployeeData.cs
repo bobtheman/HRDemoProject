@@ -2,8 +2,8 @@
 using FluentValidation;
 using HRDemo.Api.Contracts.EmployeeData;
 using HRDemo.Api.Database;
-using HRDemo.Api.EmployeDataValidator;
 using HRDemo.Api.Shared;
+using HRDemo.Api.Validator.EmployeDataValidator;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

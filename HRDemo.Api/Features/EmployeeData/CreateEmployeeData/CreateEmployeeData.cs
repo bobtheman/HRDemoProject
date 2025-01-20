@@ -8,7 +8,7 @@
     using Mapster;
     using HRDemo.Api.Contracts.EmployeeData;
     using Microsoft.EntityFrameworkCore;
-    using HRDemo.Api.EmployeDataValidator;
+    using HRDemo.Api.Validator.EmployeDataValidator;
 
     public static class CreateEmployeeData
     {

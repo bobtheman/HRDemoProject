@@ -8,24 +8,40 @@
         </div>
         <div class="mb-3">
             <label for="FirstName" class="form-label">First Name:</label>
-            <input type="text" class="form-control" id="txtFirstName" name="FirstName" value="@Model.EmployeeData.FirstName" required />
-            <span class="text-danger" asp-validation-for="EmployeeData.FirstName"></span>
+            <input type="text" class="form-control" id="txtFirstName" name="FirstName" value="@Model.EmployeeData.FirstName" placeholder="First Name" required  />
+            <div class="invalid-feedback">First name is required</div>
         </div>
         <div class="mb-3">
             <label for="LastName" class="form-label">Last Name:</label>
-            <input type="text" class="form-control" id="txtLastName" name="LastName" value="@Model.EmployeeData.LastName" required />
-            <span class="text-danger" asp-validation-for="EmployeeData.LastName"></span>
+            <input type="text" class="form-control" id="txtLastName" name="LastName" value="@Model.EmployeeData.LastName" placeholder="Last Name" required />
+            <div class="invalid-feedback">Last name is required</div>
         </div>
         <div class="mb-3">
             <label for="EmailAddress" class="form-label">Email Address:</label>
-            <input type="email" class="form-control" id="txtEmailAddress" name="EmailAddress" value="@Model.EmployeeData.EmailAddress" required />
-            <span class="text-danger" asp-validation-for="EmployeeData.EmailAddress"></span>
+            <input type="email" class="form-control" id="txtEmailAddress" name="EmailAddress" value="@Model.EmployeeData.EmailAddress" placeholder="Email Address" required />
+            <div class="invalid-feedback">Valid email address is required</div>
         </div>
         <div class="mb-3">
             <label for="DateOfBirth" class="form-label">Date of Birth:</label>
-            <input type="date" class="form-control" id="txtDateOfBirth" name="DateOfBirth" value="@Model.EmployeeData.DateOfBirth?.ToString("yyyy-MM-dd")" required />
-            <span class="text-danger" asp-validation-for="EmployeeData.DateOfBirth"></span>
+            <input type="date" class="form-control" id="txtDateOfBirth" name="DateOfBirth" value="@Model.EmployeeData.DateOfBirth?.ToString("yyyy-MM-dd")" placeholder="Date of Birth" required max="@DateTime.Now.AddYears(-16).ToString("yyyy-MM-dd")" />
+            <div class="invalid-feedback">Enter a valid date of birth, cannot be in the future and minimum 16 years old</div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var dateOfBirthInput = document.getElementById('txtDateOfBirth');
+                var today = new Date();
+                var maxDate = new Date(today.getFullYear() - 16, today.getMonth(), today.getDate());
+                dateOfBirthInput.max = maxDate.toISOString().split('T')[0];
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var dateOfBirthInput = document.getElementById('txtDateOfBirth');
+                var today = new Date();
+                var maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+                dateOfBirthInput.max = maxDate.toISOString().split('T')[0];
+            });
+        </script>
         <div class="mb-3">
             <label for="DepartmentId" class="form-label">Department:</label>
             <select id="ddlDepartment" class="form-control" name="DepartmentId" required>
@@ -44,7 +60,7 @@
                     }
                 }
             </select>
-            <span class="text-danger" asp-validation-for="EmployeeData.DepartmentId"></span>
+            <div class="invalid-feedback">Department is required</div>
         </div>
         <div class="mb-3">
             <label for="EmployeeStatusId" class="form-label">Employee Status:</label>
@@ -64,12 +80,12 @@
                     }
                 }
             </select>
-            <span class="text-danger" asp-validation-for="EmployeeData.EmployeeStatusId"></span>
+            <div class="invalid-feedback">Employee Status is required</div>
         </div>
         <div class="mb-3">
             <label for="EmployeeNumber" class="form-label">Employee Number:</label>
-            <input type="text" class="form-control" id="txtEmployeeNumber" name="EmployeeNumber" value="@Model.EmployeeData.EmployeeNumber" required />
-            <span class="text-danger" asp-validation-for="EmployeeData.EmployeeNumber"></span>
+            <input type="text" class="form-control" id="txtEmployeeNumber" name="EmployeeNumber" value="@Model.EmployeeData.EmployeeNumber" required placeholder="Employee Number" />
+            <div class="invalid-feedback">Employee Number is required</div>
         </div>
         <div class="mb-3">
             <div class="d-flex justify-content-between">

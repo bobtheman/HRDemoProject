@@ -55,7 +55,7 @@
                 var emailExists = await _dbContext.EmployeeData.AnyAsync(e => e.EmailAddress == request.EmailAddress && e.Id != request.Id, cancellationToken);
                 if (emailExists)
                 {
-                    return Result.Failure<int>(new Error("UpdateEmployeeData.DuplicateEmail", "Email address already exists."));
+                    return Result.Failure<int>(new Error("UpdateEmployeeData.DuplicateEmail", "The email address is already in use"));
                 }
 
                 var employeeStatusList = _dbContext.EmployeeStatus.AsNoTracking().AsQueryable();
@@ -67,7 +67,7 @@
                     var employeeNumberAlreadyExists = await _dbContext.EmployeeData.AnyAsync(e => e.EmployeeNumber == request.EmployeeNumber && e.Id != request.Id, cancellationToken);
                     if (employeeNumberAlreadyExists)
                     {
-                        return Result.Failure<int>(new Error("UpdateEmployeeData.DuplicateEmployeeNumber", "Employee number already exists."));
+                        return Result.Failure<int>(new Error("UpdateEmployeeData.DuplicateEmployeeNumber", "An approved employee with that employee number already exists"));
                     }
                 }
 

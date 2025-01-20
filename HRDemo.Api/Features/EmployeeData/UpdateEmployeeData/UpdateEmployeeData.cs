@@ -9,7 +9,6 @@
     using HRDemo.Api.Contracts.EmployeeData;
     using Microsoft.EntityFrameworkCore;
     using HRDemo.Api.EmployeDataValidator;
-
     public static class UpdateEmployeeData
     {
         public class Command : IRequest<Result<int>>
@@ -58,10 +57,17 @@
                     return Result.Failure<int>(new Error("UpdateEmployeeData.DuplicateEmail", "Email address already exists."));
                 }
 
-                var employeeNumberExists = await _dbContext.EmployeeData.AnyAsync(e => e.EmployeeNumber == request.EmployeeNumber && e.Id != request.Id, cancellationToken);
-                if (employeeNumberExists)
+                var employeeStatusList = _dbContext.EmployeeStatus.AsNoTracking().AsQueryable();
+
+                var approvedStatus = await employeeStatusList.FirstOrDefaultAsync(es => es.Name == "Approved", cancellationToken);
+                
+                if (request.EmployeeStatusId == approvedStatus?.Id)
                 {
-                    return Result.Failure<int>(new Error("UpdateEmployeeData.DuplicateEmployeeNumber", "Employee number already exists."));
+                    var employeeNumberAlreaduExists = await _dbContext.EmployeeData.AnyAsync(e => e.EmployeeNumber == request.EmployeeNumber, cancellationToken);
+                    if (employeeNumberAlreaduExists)
+                    {
+                        return Result.Failure<int>(new Error("UpdateEmployeeData.DuplicateEmployeeNumber", "Employee number already exists."));
+                    }
                 }
 
                 var employeeData = new Entities.EmployeeData()

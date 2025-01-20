@@ -45,6 +45,7 @@
             public async Task<Result<int>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var validationResult = _validator.Validate(request);
+
                 if (!validationResult.IsValid)
                 {
                     return Result.Failure<int>(new Error("CreateEmployeeData.Validation", validationResult.ToString()));
@@ -53,13 +54,20 @@
                 var emailExists = await _dbContext.EmployeeData.AnyAsync(e => e.EmailAddress == request.EmailAddress, cancellationToken);
                 if (emailExists)
                 {
-                    return Result.Failure<int>(new Error("UpdateEmployeeData.DuplicateEmail", "Email address already exists."));
+                    return Result.Failure<int>(new Error("CreateEmployeeData.DuplicateEmail", "Email address already exists."));
                 }
 
-                var employeeNumberExists = await _dbContext.EmployeeData.AnyAsync(e => e.EmployeeNumber == request.EmployeeNumber, cancellationToken);
-                if (employeeNumberExists)
+                var employeeStatusList = _dbContext.EmployeeStatus.AsNoTracking().AsQueryable();
+
+                var approvedStatus = await employeeStatusList.FirstOrDefaultAsync(es => es.Name == "Approved", cancellationToken);
+
+                if (request.EmployeeStatusId == approvedStatus?.Id)
                 {
-                    return Result.Failure<int>(new Error("UpdateEmployeeData.DuplicateEmployeeNumber", "Employee number already exists."));
+                    var employeeNumberAlreaduExists = await _dbContext.EmployeeData.AnyAsync(e => e.EmployeeNumber == request.EmployeeNumber, cancellationToken);
+                    if (employeeNumberAlreaduExists)
+                    {
+                        return Result.Failure<int>(new Error("CreateEmployeeData.DuplicateEmployeeNumber", "Employee number already exists."));
+                    }
                 }
 
                 var employeeData = new Entities.EmployeeData()
@@ -79,7 +87,6 @@
 
                 return employeeData.Id;
             }
-
         }
     }
 
@@ -98,7 +105,7 @@
                     return Results.BadRequest(result.Error);
                 }
 
-                return Results.Ok(result.Value);
+                return Results.Ok(result);
             });
         }
     }

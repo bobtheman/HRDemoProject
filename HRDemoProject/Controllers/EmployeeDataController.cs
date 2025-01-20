@@ -96,12 +96,12 @@
             if (employeeData.Id == 0)
             {
                 result = await _employeeDataService.CreateEmployeeDataAsync(employeeData);
-                _logger.LogInformation($"SaveEmployeeData Create isSuccess:{result.IsSuccess}|isFailure|Code:{result.Code}|Message:{result.Message}");
+                _logger.LogInformation($"SaveEmployeeData Create isSuccess:{result.IsSuccess}|isFailure:{result.IsFailure}|Code:{result.Code}|Message:{result.Message}");
             }
             else
             {
                 result = await _employeeDataService.UpdateEmployeeDataAsync(employeeData);
-                _logger.LogInformation($"SaveEmployeeData Update Id:{employeeData.Id}|isSuccess:{result.IsSuccess}|isFailure|Code:{result.Code}|Message:{result.Message}");
+                _logger.LogInformation($"SaveEmployeeData Update Id:{employeeData.Id}|isSuccess:{result.IsSuccess}|isFailure:{result.IsFailure}|Code:{result.Code}|Message:{result.Message}");
             }
 
             return Json(result);

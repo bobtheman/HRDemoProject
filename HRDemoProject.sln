@@ -9,6 +9,12 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "HRDemo.Schema", "HRDemoSche
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRDemoProject", "HRDemoProject\HRDemoProject.csproj", "{E4CED657-4ED7-4C14-B73F-AC449B665741}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DDC38225-3FDF-4B87-9935-124D1F24465B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRDemo.Api.Tests", "HRDemo.Api.Tests\HRDemo.Api.Tests.csproj", "{ECBDF256-6C4F-4468-B7EB-B591428AEEC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRDemo.Web.Test", "HRDemo.Web.Test\HRDemo.Web.Test.csproj", "{F2A8631D-E58C-4CBE-A7F3-49AF77E83027}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,8 +35,20 @@ Global
 		{E4CED657-4ED7-4C14-B73F-AC449B665741}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4CED657-4ED7-4C14-B73F-AC449B665741}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4CED657-4ED7-4C14-B73F-AC449B665741}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECBDF256-6C4F-4468-B7EB-B591428AEEC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECBDF256-6C4F-4468-B7EB-B591428AEEC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECBDF256-6C4F-4468-B7EB-B591428AEEC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECBDF256-6C4F-4468-B7EB-B591428AEEC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2A8631D-E58C-4CBE-A7F3-49AF77E83027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2A8631D-E58C-4CBE-A7F3-49AF77E83027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2A8631D-E58C-4CBE-A7F3-49AF77E83027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2A8631D-E58C-4CBE-A7F3-49AF77E83027}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ECBDF256-6C4F-4468-B7EB-B591428AEEC9} = {DDC38225-3FDF-4B87-9935-124D1F24465B}
+		{F2A8631D-E58C-4CBE-A7F3-49AF77E83027} = {DDC38225-3FDF-4B87-9935-124D1F24465B}
 	EndGlobalSection
 EndGlobal

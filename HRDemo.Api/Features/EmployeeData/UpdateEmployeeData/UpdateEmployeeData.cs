@@ -31,7 +31,7 @@
             }
         }
 
-        internal sealed class Handler : IRequestHandler<Command, Result<int>>
+        public class Handler : IRequestHandler<Command, Result<int>>
         {
             private readonly AppDbContext _dbContext;
             private readonly IValidator<Command> _validator;
@@ -63,8 +63,8 @@
                 
                 if (request.EmployeeStatusId == approvedStatus?.Id)
                 {
-                    var employeeNumberAlreaduExists = await _dbContext.EmployeeData.AnyAsync(e => e.EmployeeNumber == request.EmployeeNumber, cancellationToken);
-                    if (employeeNumberAlreaduExists)
+                    var employeeNumberAlreadyExists = await _dbContext.EmployeeData.AnyAsync(e => e.EmployeeNumber == request.EmployeeNumber && e.Id != request.Id, cancellationToken);
+                    if (employeeNumberAlreadyExists)
                     {
                         return Result.Failure<int>(new Error("UpdateEmployeeData.DuplicateEmployeeNumber", "Employee number already exists."));
                     }

@@ -2,6 +2,7 @@
 {
     using HRDemoProject.Models.Employee;
     using HRDemoProject.Models.FilterOptions;
+    using HRDemoProject.Services;
     using HRDemoProject.Services.Department;
     using HRDemoProject.Services.EmployeeData;
     using HRDemoProject.Services.EmployeeStatus;
@@ -90,46 +91,20 @@
         [HttpPost]
         public async Task<IActionResult> SaveEmployeeData(EmployeeData employeeData)
         {
-            bool isSuccess = false;
+            var result = new Result();
 
             if (employeeData.Id == 0)
             {
-                isSuccess = await CreateEmployeeData(employeeData);
+                result = await _employeeDataService.CreateEmployeeDataAsync(employeeData);
+                _logger.LogInformation($"SaveEmployeeData Create isSuccess:{result.IsSuccess}|isFailure|Code:{result.Code}|Message:{result.Message}");
             }
             else
             {
-                isSuccess = await UpdateEmployeeData(employeeData);
+                result = await _employeeDataService.UpdateEmployeeDataAsync(employeeData);
+                _logger.LogInformation($"SaveEmployeeData Update Id:{employeeData.Id}|isSuccess:{result.IsSuccess}|isFailure|Code:{result.Code}|Message:{result.Message}");
             }
 
-            return Json(isSuccess);
-        }
-
-        private async Task<bool> CreateEmployeeData(EmployeeData employeeData)
-        {
-            try
-            {
-                var result = await _employeeDataService.CreateEmployeeDataAsync(employeeData);
-                return true;
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError(ex, "Error while creating employee data");
-                return false;
-            }
-        }
-
-        private async Task<bool> UpdateEmployeeData(EmployeeData employeeData)
-        {
-            try
-            {
-                var result = await _employeeDataService.UpdateEmployeeDataAsync(employeeData);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error while updating employee data");
-                return false;
-            }
+            return Json(result);
         }
     }
 }

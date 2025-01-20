@@ -3,6 +3,9 @@
 <div class="container">
     <form class="needs-validation" novalidate>
         <input type="hidden" id="hdnId" name="Id" value="@Model.EmployeeData.Id" />
+        <div class="mb-3 text-center">
+            <div id="divResult"></div>
+        </div>
         <div class="mb-3">
             <label for="FirstName" class="form-label">First Name:</label>
             <input type="text" class="form-control" id="txtFirstName" name="FirstName" value="@Model.EmployeeData.FirstName" required />
@@ -68,8 +71,11 @@
             <input type="text" class="form-control" id="txtEmployeeNumber" name="EmployeeNumber" value="@Model.EmployeeData.EmployeeNumber" required />
             <span class="text-danger" asp-validation-for="EmployeeData.EmployeeNumber"></span>
         </div>
-        <div class="mb-3" style="text-align:right">
-            <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="mb-3">
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="reloadGrid()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </div>
     </form>
 </div>
@@ -85,6 +91,7 @@
                         event.preventDefault()
                         event.stopPropagation()
                     } else {
+                        event.preventDefault();
                         saveEmployeeChanges();
                     }
                     form.classList.add('was-validated')
@@ -110,19 +117,29 @@
             data: employeeData,
             dataType: "json",
             success: function (response) {
-                $('#employeeModal').modal('hide');
-
-                if(response)
+                if(response.isSuccess == true)
                 {
-                    alert('Success saving employee data');
-                    GetFilteredData();
+                    var alertDiv = $('<div class="alert alert-success fade show" role="alert">')
+                            .text('Success saving employee data')
+                            $('#divResult').html(alertDiv);
+                            
+                    reloadGrid();
+
                 }
                 else
                 {
-                    alert('Error saving employee data');
-                    GetFilteredData();
+                    var alertDiv = $('<div class="alert alert-danger fade show" role="alert">')
+                            .text('Error saving employee data: ' + response.message)
+                            $('#divResult').html(alertDiv);
                 }
             }
         });
+    }
+
+    function reloadGrid(){
+        setTimeout(function() {
+            $('#employeeModal').modal('hide');
+            GetFilteredData();
+        }, 2000);
     }
 </script>

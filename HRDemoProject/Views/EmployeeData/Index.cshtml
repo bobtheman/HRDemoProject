@@ -51,7 +51,7 @@
     </table>
 </div>
 
-<div class="modal fade" id="employeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeModalLabel" aria-hidden="true">
+<div class="modal fade" id="employeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -111,7 +111,7 @@
                     {
                         data: 'id',
                         render: function (data, type, row) {
-                            return '<a href="#" onclick="openEmployeeModalCreateEdit(' + data + ')">Edit</a>';
+                            return '<a href="#" class="btn btn-primary" onclick="openEmployeeModalCreateEdit(' + data + ')">Edit</a>';
                         }
                     },
                     { data: 'firstName' },
